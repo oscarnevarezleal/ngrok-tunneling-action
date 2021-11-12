@@ -28,3 +28,10 @@ runs:
       shell: bash
     - run: ngrok tcp ${{ inputs.port }} -log=stdout 80 > /dev/null &
       shell: bash
+    - run: |
+        curl  http://localhost:4040/api/tunnels > tunnels.json
+        cat tunnels.json
+      shell: bash
+    - run: |
+        timeout ${{ inputs.timeout }} watch -n5 date
+      shell: bash
