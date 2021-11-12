@@ -26,7 +26,7 @@ runs:
       shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
-    - run: ./ngrok tcp ${{ inputs.port }} -log=stdout 80 > /dev/null &
+    - run: ./ngrok tcp ${{ inputs.port }} > /dev/null &
       shell: bash
     - run: |
         curl  http://localhost:4040/api/tunnels > tunnels.json
