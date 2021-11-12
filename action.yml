@@ -20,7 +20,7 @@ inputs:
 outputs:
   public-url:
     description: "ngrok public-url"
-    value: "-"
+    value: ${{ steps.ngrok-runner.outputs.public-url }}
 
 runs:
   using: "composite"
@@ -33,7 +33,8 @@ runs:
       shell: bash
     - run: timeout ${{ inputs.timeout }} ./ngrok http ${{ inputs.port }} > /dev/null &
       shell: bash
-    - run: |
+    - id: ngrok-runner
+      run: |
         sleep 5
         curl  http://localhost:4040/api/tunnels > tunnels.json
         publicUrl=$(cat tunnels.json | jq -rc '.tunnels[0].public_url')
