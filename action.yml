@@ -21,7 +21,6 @@ outputs:
   public-url:
     description: "ngrok public-url"
     value: ${{ steps.ngrok-runner.outputs.public-url }}
-
 runs:
   using: "composite"
   steps:
