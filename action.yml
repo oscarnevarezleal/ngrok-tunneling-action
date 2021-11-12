@@ -26,11 +26,11 @@ runs:
       shell: bash
     - run: ./ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
-    - run: ./ngrok tcp ${{ inputs.port }} > /dev/null &
+    - run: ./ngrok http ${{ inputs.port }} > /dev/null &
       shell: bash
     - run: |
         curl  http://localhost:4040/api/tunnels > tunnels.json
-        cat tunnels.json
+        cat tunnels.json | jq '.tunnels[0]'
       shell: bash
     - run: |
         timeout ${{ inputs.timeout }} watch -n5 date
