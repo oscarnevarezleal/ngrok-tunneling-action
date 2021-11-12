@@ -20,7 +20,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+    - run: wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
       shell: bash
     - run: unzip -qq ngrok-stable-linux-amd64.zip
       shell: bash
@@ -31,6 +31,7 @@ runs:
     - run: |
         sleep 5
         curl  http://localhost:4040/api/tunnels > tunnels.json
+        cat tunnels.json
         publicUrl=$(cat tunnels.json | jq '.tunnels[0].public_url')
         echo "::set-output name=PUBLIC_URL::${publicUrl}"
       shell: bash
