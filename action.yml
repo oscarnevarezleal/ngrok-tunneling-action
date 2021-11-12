@@ -2,11 +2,11 @@ name: 'Ngrok TCP Tunelling'
 description: 'A github action for tunelling TCP traffic from within Workflow environemt'
 
 branding:
-  icon: 'activity'  
+  icon: 'activity'
   color: 'green'
 
 inputs:
-  timeout:  
+  timeout:
     description: 'Challenge deployment timeout'
     required: true
     default: '1h'
@@ -19,7 +19,7 @@ inputs:
 
 runs:
   using: "composite"
-  steps: 
+  steps:
     - run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
       shell: bash
     - run: unzip -qq ngrok-stable-linux-amd64.zip
@@ -30,5 +30,6 @@ runs:
       shell: bash
     - run: |
         curl  http://localhost:4040/api/tunnels > tunnels.json
-        cat tunnels.json | jq '.tunnels[0].public_url'
+        publicUrl=$(cat tunnels.json | jq '.tunnels[0].public_url')
+        echo "::set-output name=PUBLIC_URL::${publicUrl}"
       shell: bash
