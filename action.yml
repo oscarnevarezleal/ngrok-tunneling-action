@@ -17,6 +17,11 @@ inputs:
     description: 'Ngrok authorization token'
     required: true
 
+outputs:
+  public-url:
+    description: "ngrok public-url"
+    value: "-"
+
 runs:
   using: "composite"
   steps:
@@ -32,6 +37,6 @@ runs:
         sleep 5
         curl  http://localhost:4040/api/tunnels > tunnels.json
         publicUrl=$(cat tunnels.json | jq -rc '.tunnels[0].public_url')
-        echo "::set-output name=PUBLIC_URL::${publicUrl}"
+        echo "::set-output name=public-url::${publicUrl}"
         echo "publicUrl=${publicUrl}"
       shell: bash
