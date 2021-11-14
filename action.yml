@@ -28,7 +28,7 @@ runs:
       shell: bash
     - run: unzip -qq ngrok-stable-linux-amd64.zip && rm ngrok-stable-linux-amd64.zip
       shell: bash
-    - run: mv ./ngrok /usr/bin/ngrok
+    - run: sudo mv ./ngrok /usr/bin/ngrok
       shell: bash
     - run: /usr/bin/ngrok authtoken ${{ inputs.ngrok_authtoken }}
       shell: bash
